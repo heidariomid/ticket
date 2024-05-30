@@ -1,6 +1,5 @@
 import {Priority} from '@prisma/client';
-import {Badge} from './ui/badge';
-import {Circle} from 'lucide-react';
+import {Flame} from 'lucide-react';
 
 const TicketPriorityBadge = ({priority}: {priority: Priority}) => {
 	const priorityMap: Record<
@@ -16,23 +15,23 @@ const TicketPriorityBadge = ({priority}: {priority: Priority}) => {
 	};
 
 	return (
-		<>
-			<Circle
+		<div className='flex justify-between'>
+			<Flame
 				size={'20px'}
 				strokeWidth={0}
-				className={`${priorityMap[priority].level >= 1 ? 'fill-amber-500' : 'fill-none '}`}
+				className={`${priorityMap[priority].level >= 1 ? 'fill-red-500' : 'fill-none '}`}
 			/>
-			<Circle
+			<Flame
 				size={'20px'}
 				strokeWidth={0}
-				className={`${priorityMap[priority].level >= 2 ? 'fill-amber-500' : 'fill-none'}`}
+				className={`${priorityMap[priority].level >= 2 ? 'fill-red-500' : 'fill-none'}`}
 			/>
-			<Circle
+			<Flame
 				size={'20px'}
 				strokeWidth={0}
-				className={`${priorityMap[priority].level >= 3 ? 'fill-amber-500' : 'fill-none'}`}
+				className={`${priorityMap[priority].level >= 3 ? 'fill-red-500' : 'fill-none'}`}
 			/>
-		</>
+		</div>
 	);
 };
 
