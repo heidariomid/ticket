@@ -11,6 +11,7 @@ const Ticket = async ({params}: Props) => {
 			id: parseInt(params.id),
 		},
 	});
+	const users = await prisma.user.findMany();
 
 	if (!ticket) {
 		return (
@@ -22,7 +23,7 @@ const Ticket = async ({params}: Props) => {
 
 	return (
 		<div>
-			<TicketDetail ticket={ticket} />
+			<TicketDetail ticket={ticket} users={users} />
 		</div>
 	);
 };

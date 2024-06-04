@@ -1,5 +1,5 @@
 import prisma from '@/prisma/db';
-import {ticketSchema} from '@/validationSchemas/ticket';
+import {ticketPatchSchema} from '@/validationSchemas/ticket';
 import {NextRequest, NextResponse} from 'next/server';
 
 interface Props {
@@ -8,7 +8,7 @@ interface Props {
 
 export async function PATCH(req: NextRequest, {params}: Props) {
 	const body = await req.json();
-	const validation = ticketSchema.safeParse(body);
+	const validation = ticketPatchSchema.safeParse(body);
 	if (!validation.success) {
 		return NextResponse.json(validation.error.format(), {status: 400});
 	}
@@ -19,6 +19,10 @@ export async function PATCH(req: NextRequest, {params}: Props) {
 	});
 	if (!ticket) {
 		return NextResponse.json({message: 'Ticket not found'}, {status: 404});
+	}
+
+	if (body?.assignedToUserId) {
+		body.assignedToUserId = parseInt(body.assignedToUserId);
 	}
 	const updateTicket = await prisma.ticket.update({
 		where: {
