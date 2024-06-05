@@ -37,8 +37,8 @@ const UserForm = ({user}: Props) => {
 			setIsSubmitting(false);
 			router.push('/');
 			router.refresh();
-		} catch (error) {
-			setError('An error occurred');
+		} catch (error: any) {
+			setError(error.response?.data.message || error.response?.data.error || 'An error occurred');
 			setIsSubmitting(false);
 		}
 	};

@@ -14,6 +14,7 @@ import {useState} from 'react';
 import axios from 'axios';
 import {useRouter} from 'next/navigation';
 import {Ticket} from '@prisma/client';
+import Error from 'next/error';
 
 type TicketFormData = z.infer<typeof ticketSchema>;
 interface Props {
@@ -39,8 +40,8 @@ const TicketForm = ({ticket}: Props) => {
 			setIsSubmitting(false);
 			router.push('/tickets');
 			router.refresh();
-		} catch (error) {
-			setError('An error occurred');
+		} catch (error: any) {
+			setError(error.response?.data.error || 'An error occurred');
 			setIsSubmitting(false);
 		}
 	};

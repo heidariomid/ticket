@@ -1,6 +1,14 @@
 import dynamic from 'next/dynamic';
 const UserForm = dynamic(() => import('@/components/UserForm'), {ssr: false});
-const NewUser = () => {
+import {getServerSession} from 'next-auth';
+import {authOptions} from '@/app/api/auth/[...nextauth]/route';
+
+const NewUser = async () => {
+	const session = await getServerSession(authOptions);
+
+	if (session?.user.role !== 'ADMIN') {
+		return <div className='text-destructive'>Admin access required.</div>;
+	}
 	return (
 		<div>
 			<div className='w-full flex justify-center mb-4 '>

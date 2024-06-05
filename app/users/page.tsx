@@ -1,7 +1,7 @@
 import {buttonVariants} from '@/components/ui/button';
 import Link from 'next/link';
 
-const Users = () => {
+const Users = async () => {
 	return (
 		<div>
 			<Link
